@@ -18,7 +18,11 @@ import {
 	PaginationLink,
 	PaginationNext,
 	PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
+import AddUser from '@/myComponent/AddUser/AddUser';
+
+
+
 const UserPage = () => {
 
 
@@ -31,9 +35,27 @@ const UserPage = () => {
 		{ id: 4, name: 'Bob Brown', title: 'Developer', role: 'Admin', status: 'Inactive' },
 	];
 
-	const totalPages = 100;
-	const currentPage = 3; // You can dynamically manage the current page using state
-	const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+	const [selectedRows, setSelectedRows] = useState(new Set());
+
+	const toggleSelectAll = () => {
+		const allSelected = selectedRows.size === dummyDataForUser.length;
+		const newSelectedRows = new Set(
+			allSelected ? [] : dummyDataForUser.map(row => row.id)
+		);
+		setSelectedRows(newSelectedRows);
+	};
+
+	const toggleSelectRow = (id) => {
+		const newSelectedRows = new Set(selectedRows);
+		if (newSelectedRows.has(id)) {
+			newSelectedRows.delete(id);
+		} else {
+			newSelectedRows.add(id);
+		}
+		setSelectedRows(newSelectedRows);
+	};
+
+	const [isDialogAddUserOpen, setIsDialogAddUserOpen] = useState(false);
 
 
 
@@ -66,10 +88,15 @@ const UserPage = () => {
 						{/* Action Buttons Section */}
 						<div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 							{/* Add Product Button */}
-							<Button className="flex items-center">
+							<Button className="flex items-center"
+								onClick={() => setIsDialogAddUserOpen(true)}
+							>
 								<Plus className="h-4 w-4" />
 								<span>Add User</span>
 							</Button>
+
+							{/* Add user dialog box */}
+							<AddUser isOpen={isDialogAddUserOpen} setIsOpen={setIsDialogAddUserOpen} />
 
 							{/* Filter Dropdown */}
 							<DropdownMenu>
@@ -107,6 +134,13 @@ const UserPage = () => {
 						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 							<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 								<tr>
+									<th scope="col" className="px-4 py-3">
+										<Checkbox
+											checked={selectedRows.size === dummyDataForUser.length}
+											onCheckedChange={toggleSelectAll}
+											aria-label="Select all"
+										/>
+									</th>
 									<th scope="col" className="px-4 py-3">Name</th>
 									<th scope="col" className="px-4 py-3">Title</th>
 									<th scope="col" className="px-4 py-3">Role</th>
@@ -117,6 +151,13 @@ const UserPage = () => {
 							<tbody>
 								{dummyDataForUser.map((product) => (
 									<tr key={product.id} className="border-b dark:border-gray-700">
+										<td className="px-4 py-3">
+											<Checkbox
+												checked={selectedRows.has(product.id)}
+												onCheckedChange={() => toggleSelectRow(product.id)}
+												aria-label={`Select ${product.name}`}
+											/>
+										</td>
 										<td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 											{product.name}
 										</td>
