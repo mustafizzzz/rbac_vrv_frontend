@@ -1,13 +1,17 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import LoginPage from './pages/LoginPage/LoginPage'
 
 function App() {
 
   return (
-    <>
-      <div className="w-full h-screen bg-slate-800">
-        <h1 className="bg-white">test page 12</h1>
-      </div>
-    </>
+    <div className="App">
+
+      <Routes>
+        <Route path='/' element={<LoginPage />} />
+      </Routes>
+
+    </div>
   )
 }
 
