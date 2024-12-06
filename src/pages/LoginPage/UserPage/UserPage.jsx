@@ -41,7 +41,7 @@ const UserPage = () => {
 
 		<section className=" dark:bg-gray-900 p-3 sm:p-5">
 
-			<div className="mx-auto max-w-screen-xl px-4 lg:px-4">
+			<div className="mx-auto max-w-screen-xl px-4 lg:px-2">
 
 				<div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
@@ -107,26 +107,26 @@ const UserPage = () => {
 						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 							<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 								<tr>
-									<th scope="col" className="px-4 py-3 text-center">Name</th>
-									<th scope="col" className="px-4 py-3 text-center">Title</th>
-									<th scope="col" className="px-4 py-3 text-center">Role</th>
-									<th scope="col" className="px-4 py-3 text-center">Status</th>
+									<th scope="col" className="px-4 py-3">Name</th>
+									<th scope="col" className="px-4 py-3">Title</th>
+									<th scope="col" className="px-4 py-3">Role</th>
+									<th scope="col" className="px-4 py-3">Status</th>
 									<th scope="col" className="px-4 py-3 text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
 								{dummyDataForUser.map((product) => (
 									<tr key={product.id} className="border-b dark:border-gray-700">
-										<td className="px-4 py-3 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+										<td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 											{product.name}
 										</td>
-										<td className="px-4 py-3 text-center">{product.title}</td>
-										<td className="px-4 py-3 text-center">{product.role}</td>
-										<td className="px-4 py-3 text-center">{product.status}</td>
+										<td className="px-4 py-3">{product.title}</td>
+										<td className="px-4 py-3">{product.role}</td>
+										<td className="px-4 py-3">{product.status}</td>
 										<td className="px-4 py-3 flex items-center justify-center">
 											<DropdownMenu>
 												<DropdownMenuTrigger asChild>
-													<Button variant="ghost" className="w-10 h-8">
+													<Button variant="secondary" className="w-10 h-8">
 														<MoreHorizontal className="w-5 h-5" />
 													</Button>
 												</DropdownMenuTrigger>
