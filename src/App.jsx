@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage/LoginPage'
 import DashboardLayout from './myComponent/LayoutWrapper/DasboardLayout'
 import HomePage from './pages/LoginPage/HomePage/HomePage'
 import UserPage from './pages/LoginPage/UserPage/UserPage'
+import Permission from './pages/PermissionPage/Permission'
+import Roles from './pages/RolesPage/Roles'
 
 function App() {
 
@@ -15,8 +17,9 @@ function App() {
 
 
         <Route path='/dashboard' element={<DashboardLayout />}>
-          <Route path='home' element={<HomePage />} />
           <Route path='users' element={<UserPage />} />
+          <Route path='permissions' element={<Permission />} />
+          <Route path='roles' element={<Roles />} />
         </Route>
       </Routes>
 

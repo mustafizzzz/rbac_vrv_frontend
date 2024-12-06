@@ -1,14 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Users, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, Users, Settings, ChevronLeft, ChevronRight, UserCog, Key } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 
 const Sidebar = ({ isOpen, toggleSidebar, currentPage, setCurrentPage }) => {
 	const sidebarItems = [
-		{ icon: Home, label: 'Home', path: '/dashboard/home', page: 'home' },
 		{ icon: Users, label: 'Users', path: '/dashboard/users', page: 'users' },
+		{ icon: UserCog, label: 'Roles', path: '/dashboard/roles', page: 'roles' },
+		{ icon: Key, label: 'Permissions', path: '/dashboard/permissions', page: 'permissions' },
 		{ icon: Settings, label: 'Settings', path: '/dashboard/settings', page: 'settings' },
 	];
 

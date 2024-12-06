@@ -6,7 +6,7 @@ import Navbar from '../Navbar/Navbar';
 
 const DashboardLayout = ({ children }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(true);
-	const [currentPage, setCurrentPage] = useState('home');
+	const [currentPage, setCurrentPage] = useState('users');
 
 	const toggleSidebar = () => {
 		setSidebarOpen(!sidebarOpen);
