@@ -23,7 +23,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, Plus, PlusIcon } from "lucide-react";
+import AddUser from '@/myComponent/AddUser/AddUser';
 
 // Dummy data
 const dummyResourceData = [
@@ -122,6 +123,7 @@ const permissionBadgeVariant = {
 const UserPage = () => {
 	const [globalFilter, setGlobalFilter] = useState('');
 	const [sorting, setSorting] = useState([]);
+	const [isDialogAddUserOpen, setIsDialogAddUserOpen] = useState(false);
 
 	const columns = useMemo(() => [
 		{
@@ -223,22 +225,31 @@ const UserPage = () => {
 	});
 
 	return (
-		<div className="w-full">
-			<div className="flex items-center py-4">
+		<div className="w-full space-y-4">
+
+			<div className="flex flex-row justify-between items-center gap-4">
 				<Input
 					placeholder="Search resources..."
 					value={globalFilter}
 					onChange={(event) => setGlobalFilter(event.target.value)}
-					className="max-w-sm"
+					className="w-1/2"
 				/>
+				<Button className="w-auto flex items-center gap-2"
+					onClick={() => setIsDialogAddUserOpen(true)}
+				>
+					<PlusIcon className="h-4 w-4" />
+					Add User
+				</Button>
+				<AddUser isOpen={isDialogAddUserOpen} setIsOpen={setIsDialogAddUserOpen} />
 			</div>
-			<div className="rounded-md border">
-				<Table>
+
+			<div className="rounded-md border overflow-x-auto">
+				<Table className="w-full">
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => (
-									<TableHead key={header.id}>
+									<TableHead key={header.id} className="whitespace-nowrap">
 										{header.isPlaceholder
 											? null
 											: flexRender(
@@ -255,7 +266,10 @@ const UserPage = () => {
 							table.getRowModel().rows.map((row) => (
 								<TableRow key={row.id}>
 									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
+										<TableCell
+											key={cell.id}
+											className="whitespace-nowrap max-w-xs truncate"
+										>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext()
@@ -266,7 +280,10 @@ const UserPage = () => {
 							))
 						) : (
 							<TableRow>
-								<TableCell colSpan={columns.length} className="h-24 text-center">
+								<TableCell
+									colSpan={columns.length}
+									className="h-24 text-center"
+								>
 									No results.
 								</TableCell>
 							</TableRow>
@@ -275,12 +292,9 @@ const UserPage = () => {
 				</Table>
 			</div>
 
-			<div className="flex items-center justify-end space-x-2 py-4">
-				<div className="flex-1 text-sm text-muted-foreground">
-					{table.getFilteredSelectedRowModel().rows.length} of{" "}
-					{table.getFilteredRowModel().rows.length} row(s) selected.
-				</div>
-				<div className="space-x-2">
+			<div className="flex flex-col md:flex-row items-center justify-end space-y-2 md:space-y-0">
+
+				<div className="flex items-center space-x-2">
 					<Button
 						variant="outline"
 						size="sm"
@@ -299,6 +313,7 @@ const UserPage = () => {
 					</Button>
 				</div>
 			</div>
+
 		</div>
 	);
 };
